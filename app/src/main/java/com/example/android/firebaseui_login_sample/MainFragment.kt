@@ -93,9 +93,6 @@ class MainFragment : Fragment() {
     private fun observeAuthenticationState() {
         val factToDisplay = viewModel.getFactToDisplay(requireContext())
 
-        // TODO Use the authenticationState variable from LoginViewModel to update the UI
-        //  accordingly.
-
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
             when (authenticationState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
@@ -114,14 +111,6 @@ class MainFragment : Fragment() {
                 }
             }
         })
-        //
-        //  TODO If there is a logged-in user, authButton should display Logout. If the
-        //   user is logged in, you can customize the welcome message by utilizing
-        //   getFactWithPersonalition(). I
-
-        // TODO If there is no logged in user, authButton should display Login and launch the sign
-        //  in screen when clicked. There should also be no personalization of the message
-        //  displayed.
     }
 
 
@@ -135,9 +124,10 @@ class MainFragment : Fragment() {
         )
     }
 
+    /**
+     * Allow users to sign in with either their email address or Google account
+     */
     private fun launchSignInFlow() {
-        // TODO Complete this function by allowing users to register and sign in with
-        //  either their email address or Google account.
         val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(), AuthUI.IdpConfig.GoogleBuilder().build()
         )
@@ -147,7 +137,7 @@ class MainFragment : Fragment() {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .build(),
-            MainFragment.SIGN_IN_RESULT_CODE
+            SIGN_IN_RESULT_CODE
         )
     }
 }
